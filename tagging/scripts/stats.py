@@ -36,7 +36,7 @@ class POSStats:
         for sent in tagged_sents:
             sentences += 1 #Cantidad de oraciones
             for word in sent:
-                palabras += 1 #Cantidad de ocurrencias de palabras
+                #palabras += 1 #Cantidad de ocurrencias de palabras
                 self._count[word[0]] += 1 #contando cuantas veces cada palabra aparece
                 self._countTag[word[1]] += 1 #contado de etiquetas (vocabulario de tags)
                 #print(word)
@@ -57,9 +57,9 @@ class POSStats:
                     self._wcount[word[0]] = {word[1]}
 
         self._estadisticas["sentences"] = sentences
-        self._estadisticas["palabras"] = palabras
+        self._estadisticas["palabras"] = self._count.keys()
         self._estadisticas["vocabulario"] = len(self._count) #Cantidad de palabras (vocabulario).
-        self._estadisticas["vocabularioDeTags"] = len(self._countTag)  # Cantidad de palabras (vocabulario).
+        self._estadisticas["vocabularioDeTags"] = len(self._countTag)  # Cantidad de tags (vocabulario).
         self._estadisticas["tokens"] = sum(self._count.values())
 
     def sent_count(self):
@@ -87,7 +87,7 @@ class POSStats:
 
     def unambiguous_words(self):
         """List of words with only one observed POS tag."""
-        return (ambiguous_words(self, 1))
+        return self.ambiguous_words(1)
 
     def ambiguous_words(self, n):
         """List of words with n different observed POS tags.
