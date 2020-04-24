@@ -9,16 +9,21 @@ class TestFeatureDict(TestCase):
     def test_feature_dict(self):
         sent = 'El gato come pescado .'.split()
 
+        self.maxDiff=None
+
         fdict = {
-            'w': 'el',    # lower
-            'wu': False,  # isupper
-            'wt': True,   # istitle
-            'wd': False,  # isdigit
-            'pw': '<s>',
-            'nw': 'gato',
-            'nwu': False,
-            'nwt': False,
-            'nwd': False,
+            'lower': 'el',
+            'istitle': True,
+            'isupper': False,
+            'isnumeric': False,
+            'alower': '',
+            'aistitle': False,
+            'aisupper': False,
+            'aisnumeric': False,
+            'plower': 'gato',
+            'pistitle': False,
+            'pisupper': False,
+            'pisnumeric': False,
         }
 
         self.assertEqual(feature_dict(sent, 0), fdict)
