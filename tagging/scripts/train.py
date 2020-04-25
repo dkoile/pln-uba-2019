@@ -8,6 +8,11 @@ Options:
   -m <model>    Model to use [default: badbase]:
                   badbase: Bad baseline
                   base: Baseline
+                  class: Classifier
+  -k <Classifier> Classifier [default: lr]
+                  lr: Logistic Regression
+                  svm: Linerar SVM
+                  mnb: Multinomial NB
   -c <path>     Ancora corpus path.
   -o <file>     Output model file.
   -h --help     Show this screen.
@@ -17,11 +22,13 @@ import pickle
 
 from tagging.ancora import SimpleAncoraCorpusReader
 from tagging.baseline import BaselineTagger, BadBaselineTagger
+from tagging.classifier import ClassifierTagger
 
 
 models = {
     'badbase': BadBaselineTagger,
     'base': BaselineTagger,
+    'class': ClassifierTagger,
 }
 
 
@@ -35,7 +42,10 @@ if __name__ == '__main__':
 
     # train the model
     model_class = models[opts['-m']]
-    model = model_class(sents)
+    if opts['-m']=='class':
+        model = model_class(sents, opts['-k'])
+    else:
+        model = model_class(sents)
 
     # save it
     filename = opts['-o']

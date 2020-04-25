@@ -11,12 +11,13 @@ Options:
   -m            Show confusion matrix.
   -h --help     Show this screen.
 """
+
 from docopt import docopt
 import pickle
-import sys
-from collections import defaultdict
-
 from tagging.ancora import SimpleAncoraCorpusReader
+from tagging.baseline import BaselineTagger, BadBaselineTagger
+from tagging.classifier import ClassifierTagger
+from collections import defaultdict
 
 
 def progress(msg, width=None):

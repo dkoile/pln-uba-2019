@@ -8,8 +8,8 @@ Options:
   -h --help     Show this screen.
 """
 from docopt import docopt
+import pickle
 from collections import defaultdict
-0
 from tagging.ancora import SimpleAncoraCorpusReader
 import collections
 
@@ -125,8 +125,8 @@ if __name__ == '__main__':
     # load the data
 
     #corpus = SimpleAncoraCorpusReader(opts['-c'])  #No se porque no me esta cargando asi
-    corpus = SimpleAncoraCorpusReader(opts['<path>']) #por la documentacion que encontre, lo cambie a '<path>' para no hardcodearlo
     # corpus = SimpleAncoraCorpusReader("ancora-3.0.1es")
+    corpus = SimpleAncoraCorpusReader(opts['<path>']) #por la documentacion que encontre, lo cambie a '<path>' para no hardcodearlo
     sents = corpus.tagged_sents()
 
     count = defaultdict(int)

@@ -66,12 +66,12 @@ class BaselineTagger:
 
         w -- the word.
         """
-        print("tageando")
-        print(w)
+        #print("tageando")
+        #print(w)
         if w in self._tcount:
             itemMaxValue = max(self._tcount[w].items(), key=lambda x: x[1])
-            print('Max value in Dict: ', itemMaxValue[1])
-            print('Key With Max value in Dict: ', itemMaxValue[0])
+            #print('Max value in Dict: ', itemMaxValue[1])
+            #print('Key With Max value in Dict: ', itemMaxValue[0])
 
             return itemMaxValue[0]
         else:
