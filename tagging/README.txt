@@ -166,8 +166,8 @@ sys     0m0,936s
 
 Linerar SVM
 
-time python tagging/scripts/train.py -c ancora-3.0.1es -m class -k svm -o baseline
-time python tagging/scripts/eval.py -c ancora-3.0.1es -i baseline -m
+time python tagging/scripts/train.py -c ancora-3.0.1es -m class -k svm -o baselineSVM
+time python tagging/scripts/eval.py -c ancora-3.0.1es -i baselineSVM -m
 
 Resultados:
 
@@ -199,6 +199,7 @@ Multinomial NB
 
 time python tagging/scripts/train.py -c ancora-3.0.1es -m class -k mnb -o baselinemnb
 time python tagging/scripts/eval.py -c ancora-3.0.1es -i baselinemnb -m
+
 Resultados:
 Accuracy: 84.28% / 88.07% / 49.99% (total / known / unk)
 
@@ -224,9 +225,19 @@ real    2m29,013s
 user    1m57,748s
 sys     0m31,972s
 
+El que se desempeña mejor con esta configuracion/corpus es Linerar SVM, siguiendole bien de cerca el de Logistic Regression
+
 
 ------------------------------------------------------------------------------------------------------------------------
 TP1.4
+
+La explicacion detallada de (la mayoria) de lo hecho esta en "Analisis de errores.ipynb"
+Pero en resumen, estudie mayoritariamente sobre SVM (aunque tambien corri algunos ejemplos sobre los otros clasificadores)
+Esto fue porque era el que se comportaba mejor
+Utilice error_count, y error_sents para observar algunas cosas que ocurrian en los que mas errores tenian. Discriminar mejor sobre sustantivos comunes en plural y singular fue el mas sensillo de resolver, agregando la caractersitica de saber si termina con s o no.
+Otras cosas con las que experimente, fue intentar detectar caracteres espciales como _, dado que aparecia en los errores con palabas compuestas
+tambien experimente por ejemplo con terminaciones...dado que podia ayudar terminar en aumentativos, diminutivos u otros, asi como prefijos, pero debia crear un dicconario con las cosas que s eme ocurria y se iba un poco de scope (agregar -ito, -ato, -oso, -mente, ... a-, pro-, anti-, etc)
+ademas probe con otros caracteres especiales como dieresis o acentos
 
 ------------------------------------------------------------------------------------------------------------------------
 TP1.5

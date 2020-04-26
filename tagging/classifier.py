@@ -19,6 +19,7 @@ def feature_dict(sent, i):
     i -- the position.
     """
     palabra=sent[i] #suponinedo que al menos tiene una palabra
+    especiales= ["á","é","í","ó","ú", "ü"] #solo chequeo minusculas porque pregunto sobre el lower del string
 
     #sobre la anterior
     if i==0: #primera de la oracion
@@ -26,11 +27,19 @@ def feature_dict(sent, i):
         aistitle=False
         aisupper=False
         aisnumeric=False
+        aisplural=False
+        #aunder=False
+        #aislower=False
+        aespecial=False
     else:
         alower = sent[i-1].lower()
         aistitle = sent[i-1].istitle()
         aisupper = sent[i-1].isupper()
         aisnumeric = sent[i-1].isnumeric()
+        aisplural= (sent[i-1][-1:].lower() == 's')
+        #aunder= (sent[i-1].find('_') >= 0)
+        aislower = sent[i-1].islower()
+        aespecial = (1 in [c in sent[i-1].lower() for c in especiales]),
 
     #sobre la proxima
     if i==len(sent)-1: #si es la ultima
@@ -38,25 +47,45 @@ def feature_dict(sent, i):
         pistitle = False
         pisupper = False
         pisnumeric = False
+        pisplural= False
+        #punder=False
+        pislower = False
+        pespecial = False
     else:
         plower = sent[i + 1].lower()
         pistitle = sent[i + 1].istitle()
         pisupper = sent[i + 1].isupper()
         pisnumeric = sent[i + 1].isnumeric()
+        pisplural= (sent[i + 1][-1:].lower() == 's')
+        #punder = (sent[i + 1].find('_') >= 0)
+        pislower = sent[i + 1].islower()
+        pespecial = (1 in [c in sent[i+1].lower() for c in especiales]),
 
     return {
         'lower': palabra.lower(),
         'istitle': palabra.istitle(),
         'isupper': palabra.isupper(),
         'isnumeric': palabra.isnumeric(),
+        'isplural': (palabra[-1:].lower() == 's'),
+        #'under': (palabra.find('_') >= 0),
+        #'islower': palabra.islower(),
+        'especial': (1 in [c in palabra.lower() for c in especiales]),
         'alower': alower,
         'aistitle': aistitle,
         'aisupper': aisupper,
         'aisnumeric': aisnumeric,
+        'aisplural': aisplural,
+        #'aunder': aunder,
+        'aespecial': aespecial,
+        'aislower': aislower,
         'plower': plower,
         'pistitle': pistitle,
         'pisupper': pisupper,
         'pisnumeric': pisnumeric,
+        'pisplural': pisplural,
+        #'punder': punder,
+        'pislower': pislower,
+        'pespecial': pespecial,
     }
 
 
