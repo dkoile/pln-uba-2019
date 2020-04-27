@@ -242,3 +242,27 @@ ademas probe con otros caracteres especiales como dieresis o acentos
 ------------------------------------------------------------------------------------------------------------------------
 TP1.5
 
+Descargue el binario del Fasttext en español, porque es el que requeria la libreria provista. Inclui y use la clase principal FasttextDictVectorizer. Tambien genere la lista con las claves del diccionario requeridas
+El problema fue en la ejecucion, nunca logre, a pesar de numerosos intentos, tener suficiente memoria para la ejecucion. Por algun motivo me pedia una cantidad de memoria demasiado grande
+Por ejemplo, una solucion que no logre hacer funcionar, fue usar quantize de fasttext
+
+
+Traceback (most recent call last):
+  File "tagging/scripts/train.py", line 46, in <module>
+    model = model_class(sents, opts['-k'])
+  File "/home/daniel/Downloads/pln-uba-2019/tagging/classifier.py", line 134, in __init__
+    self.fit(self.tagged_sents)
+  File "/home/daniel/Downloads/pln-uba-2019/tagging/classifier.py", line 159, in fit
+    self.pipeline.fit(X, y_true)
+  File "/home/daniel/.virtualenvs/pln/lib/python3.5/site-packages/sklearn/pipeline.py", line 356, in fit
+    self._final_estimator.fit(Xt, y, **fit_params)
+  File "/home/daniel/.virtualenvs/pln/lib/python3.5/site-packages/sklearn/svm/classes.py", line 229, in fit
+    accept_large_sparse=False)
+  File "/home/daniel/.virtualenvs/pln/lib/python3.5/site-packages/sklearn/utils/validation.py", line 719, in check_X_y
+    estimator=estimator)
+  File "/home/daniel/.virtualenvs/pln/lib/python3.5/site-packages/sklearn/utils/validation.py", line 496, in check_array
+    array = np.asarray(array, dtype=dtype, order=order)
+  File "/home/daniel/.virtualenvs/pln/lib/python3.5/site-packages/numpy/core/_asarray.py", line 85, in asarray
+    return array(a, dtype, copy=False, order=order)
+MemoryError: Unable to allocate array with shape (422436, 900) and data type float64
+

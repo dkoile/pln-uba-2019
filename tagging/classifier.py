@@ -3,7 +3,10 @@ from sklearn.feature_extraction import DictVectorizer
 from sklearn.svm import LinearSVC
 from sklearn.linear_model import LogisticRegression
 from sklearn.naive_bayes import MultinomialNB
-
+import pickle
+from tagging.ancora import SimpleAncoraCorpusReader
+from collections import defaultdict
+from tagging.fasttext2 import FasttextDictVectorizer
 
 classifiers = {
     'lr': LogisticRegression,
@@ -29,7 +32,7 @@ def feature_dict(sent, i):
         aisnumeric=False
         aisplural=False
         #aunder=False
-        #aislower=False
+        aislower=False
         aespecial=False
     else:
         alower = sent[i-1].lower()
@@ -68,7 +71,7 @@ def feature_dict(sent, i):
         'isnumeric': palabra.isnumeric(),
         'isplural': (palabra[-1:].lower() == 's'),
         #'under': (palabra.find('_') >= 0),
-        #'islower': palabra.islower(),
+        'islower': palabra.islower(),
         'especial': (1 in [c in palabra.lower() for c in especiales]),
         'alower': alower,
         'aistitle': aistitle,
@@ -97,10 +100,35 @@ class ClassifierTagger:
         """
         clf -- classifying model, one of 'svm', 'lr' (default: 'lr').
         """
+
+        diccionarioEjemplo = feature_dict("ejemplo",0) #genero un diccionario a partir de una frase (palabra) cualquiera, solo para usar las keys
+
+        lista=list(diccionarioEjemplo.keys())
+
+        xxxx=FasttextDictVectorizer("/home/daniel/Downloads/pln-uba-2019/cc.es.300.bin", ["lower","alower","plower"])
+
+
+        self.pipeline = Pipeline(
+                steps=[
+                    ('vect', xxxx),
+                    ('clf', classifiers[clf]())
+                 ])
+
+
+        """""
         self.pipeline = Pipeline([
             ('vect', DictVectorizer()),
             ('clf', classifiers[clf]())
         ])
+
+
+        self.pipeline = Pipeline([
+            ('vect', FasttextDictVectorizer('/home/daniel/Downloads/pln-uba-2019/cc.es.300.bin', lista)),
+            ('clf', classifiers[clf]())
+        ])
+
+        """
+
         self.tagged_sents = list(tagged_sents)
         self._palabrasvistas = set()
         self.fit(self.tagged_sents)
